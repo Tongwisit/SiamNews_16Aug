@@ -13,12 +13,20 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import siam.go.mint.num.siamdailynew.R;
+import siam.go.mint.num.siamdailynew.manage.MyAlert;
 
 /**
  * Created by Tong on 15/8/2560.
  */
 
 public class SignUpFragment extends Fragment {
+
+    //Explicit
+    private  String nameString, surnameString, emailString, userString, passwordString,
+                    genderString, divitionString,repasswordString;
+
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -53,10 +61,36 @@ public class SignUpFragment extends Fragment {
                 EditText emailEditText = getView().findViewById(R.id.edtEmail);
                 EditText userEditText = getView().findViewById(R.id.edtUser);
                 EditText passwordEditText = getView().findViewById(R.id.edtPassword);
+                EditText repasswordEditText = getView().findViewById(R.id.edtRePassword);
+
+                //Get value to String
+                nameString = nameEditText.getText().toString().trim();
+                surnameString = surnameEditText.getText().toString().trim();
+                emailString = emailEditText.getText().toString().trim();
+                userString = userEditText.getText().toString().trim();
+                passwordString = passwordEditText.getText().toString().trim();
+                repasswordString = repasswordEditText.getText().toString().trim();
+
+                //Check Space
+                if (checkSpace()) {
+                    //Have Space
+                    MyAlert myAlert = new MyAlert(getActivity());
+                    myAlert.myDialog(getResources().getString(R.string.have_space),
+                            getResources().getString(R.string.message_have_space));
+                }
 
 
             }// onClick
         });
+    }
+
+    private boolean checkSpace() {
+        return nameString.equals("")||
+                surnameString.equals("")||
+                emailString.equals("")||
+                userString.equals("")||
+                passwordString.equals("")||
+                repasswordString.equals("");
     }
 
     private void backControllor() {

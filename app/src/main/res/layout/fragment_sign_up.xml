@@ -150,11 +150,20 @@
                 android:background="@drawable/bg_edttext"
                 android:textColor="@color/colorPrimaryDark"
                 android:textColorHint="@color/colorPrimaryLight"
-                android:inputType="text"
+                android:inputType="textPassword"
                 android:hint="@string/password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-
+            <!--re-password-->
+            <EditText
+                android:id="@+id/edtRePassword"
+                android:background="@drawable/bg_edttext"
+                android:textColor="@color/colorPrimaryDark"
+                android:textColorHint="@color/colorPrimaryLight"
+                android:inputType="textPassword"
+                android:hint="@string/re_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
 
 
