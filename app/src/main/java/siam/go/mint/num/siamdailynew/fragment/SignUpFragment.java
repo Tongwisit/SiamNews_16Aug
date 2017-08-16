@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 
 import siam.go.mint.num.siamdailynew.R;
 import siam.go.mint.num.siamdailynew.manage.MyAlert;
@@ -51,6 +52,15 @@ public class SignUpFragment extends Fragment {
 
         //Gender Contoller
         genderContoller();
+
+        // Divition Contorller
+        divitionContorller();
+    }
+
+    private void divitionContorller() {
+        Spinner spinner = getView().findViewById(R.id.spnDivition);
+//        String[] strings = new String[]{}; การทำฟลิกค่าไปเลย
+
     }
 
     private void genderContoller() {
