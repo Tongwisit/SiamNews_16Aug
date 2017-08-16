@@ -40,6 +40,7 @@ public class SignUpFragment extends Fragment {
         saveConrtollor();
     }
 
+
     private void saveConrtollor() {
         ImageView imageView = getView().findViewById(R.id.imvSave);
         imageView.setOnClickListener(new View.OnClickListener() {
