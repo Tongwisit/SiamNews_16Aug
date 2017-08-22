@@ -10,10 +10,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import siam.go.mint.num.siamdailynew.R;
 import siam.go.mint.num.siamdailynew.manage.GetAllData;
@@ -72,8 +77,38 @@ public class SignUpFragment extends Fragment {
             String strJSoN  = getAllData.get();
             Log.d(tag, "JSON ==>" + strJSoN);
 
+            JSONArray jsonArray = new JSONArray(strJSoN);
+            final String[] divitionStrings = new String[jsonArray.length()];
+            for (int i = 0; i<jsonArray.length(); i+=1){
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                divitionStrings[i] = jsonObject.getString("fd_nameth");
+                Log.d(tag, "divition[" + i + "] ==>" + divitionStrings[i]);
+            } // for
+
+            ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<String>(
+                    getActivity(),
+                    android.R.layout.simple_list_item_1,
+                    divitionStrings
+            );
+            spinner.setAdapter(stringArrayAdapter);
+            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                    divitionString = divitionStrings[i];
+
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                    divitionString = divitionStrings[0];
+                }
+            });
+
         } catch (Exception e) {
             Log.d(tag, "e divition ==>" + e.toString());
+
         }
 
 
@@ -136,11 +171,26 @@ public class SignUpFragment extends Fragment {
                     MyAlert myAlert = new MyAlert(getActivity());
                     myAlert.myDialog(getString(R.string.title_non_choose),
                             getString(R.string.message_non_choose));
+                } else {
+                    uploadNewUserToServer();
                 }
 
 
             }// onClick
         });
+    }
+
+    private void uploadNewUserToServer() {
+        // Show Log
+        String tag = "22AvgV2";
+        Log.d(tag, nameString);
+        Log.d(tag, surnameString);
+        Log.d(tag, genderString);
+        Log.d(tag, emailString);
+        Log.d(tag, divitionString);
+        Log.d(tag, userString);
+        Log.d(tag, passwordString);
+
     }
 
     private boolean checkSpace() {
