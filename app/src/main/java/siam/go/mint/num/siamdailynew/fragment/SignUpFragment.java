@@ -16,7 +16,9 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 
 import siam.go.mint.num.siamdailynew.R;
+import siam.go.mint.num.siamdailynew.manage.GetAllData;
 import siam.go.mint.num.siamdailynew.manage.MyAlert;
+import siam.go.mint.num.siamdailynew.manage.MyConstant;
 
 /**
  * Created by Tong on 15/8/2560.
@@ -59,9 +61,23 @@ public class SignUpFragment extends Fragment {
 
     private void divitionContorller() {
         Spinner spinner = getView().findViewById(R.id.spnDivition);
+        MyConstant myConstant = new MyConstant();
+        String tag = "22AugV1";
 //        String[] strings = new String[]{}; การทำฟลิกค่าไปเลย
+        //การ ดึง คลาส
+        try {
 
-    }
+            GetAllData getAllData = new GetAllData(getActivity());
+            getAllData.execute(myConstant.getUrlfecdep());
+            String strJSoN  = getAllData.get();
+            Log.d(tag, "JSON ==>" + strJSoN);
+
+        } catch (Exception e) {
+            Log.d(tag, "e divition ==>" + e.toString());
+        }
+
+
+    }   // DivitionController
 
     private void genderContoller() {
         RadioGroup radioGroup = getView().findViewById(R.id.ragGender);

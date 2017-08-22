@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Siam DailyNew</string>
-    <string name="user">User :</string>
+    <string name="user">User</string>
     <string name="password">password</string>
-    <string name="name">Name :</string>
+    <string name="name">Name</string>
     <string name="division">คณะ</string>
     <string name="male">Male</string>
     <string name="gender">Gender</string>
