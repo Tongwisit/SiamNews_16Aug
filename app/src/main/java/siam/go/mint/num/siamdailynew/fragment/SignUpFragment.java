@@ -24,6 +24,7 @@ import siam.go.mint.num.siamdailynew.R;
 import siam.go.mint.num.siamdailynew.manage.GetAllData;
 import siam.go.mint.num.siamdailynew.manage.MyAlert;
 import siam.go.mint.num.siamdailynew.manage.MyConstant;
+import siam.go.mint.num.siamdailynew.manage.PostNewMember;
 
 /**
  * Created by Tong on 15/8/2560.
@@ -79,8 +80,10 @@ public class SignUpFragment extends Fragment {
 
             JSONArray jsonArray = new JSONArray(strJSoN);
             final String[] divitionStrings = new String[jsonArray.length()];
+            final String[] idString = new String[jsonArray.length()];
             for (int i = 0; i<jsonArray.length(); i+=1){
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
+                idString[i] = jsonObject.getString("fd_id");
                 divitionStrings[i] = jsonObject.getString("fd_nameth");
                 Log.d(tag, "divition[" + i + "] ==>" + divitionStrings[i]);
             } // for
@@ -95,14 +98,14 @@ public class SignUpFragment extends Fragment {
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                    divitionString = divitionStrings[i];
+                    divitionString = idString[i];
 
                 }
 
                 @Override
                 public void onNothingSelected(AdapterView<?> adapterView) {
 
-                    divitionString = divitionStrings[0];
+                    divitionString = idString[0];
                 }
             });
 
@@ -190,6 +193,31 @@ public class SignUpFragment extends Fragment {
         Log.d(tag, divitionString);
         Log.d(tag, userString);
         Log.d(tag, passwordString);
+
+        MyConstant myConstant = new MyConstant();
+        //String[] columStrings = myConstant.getColumMemberStrings(); ดึงค่า string
+
+        try {
+
+            PostNewMember postNewMember = new PostNewMember(getActivity());
+            postNewMember.execute(nameString, surnameString, genderString,
+                    emailString, userString, passwordString, divitionString, myConstant.getUrlAddMember());
+            String result = postNewMember.get();
+            Log.d(tag, "Result ==> " + result);
+
+            if (Boolean.parseBoolean(result)) {
+                getActivity().getSupportFragmentManager()
+                        .popBackStack();
+            } else {
+                MyAlert myAlert = new MyAlert(getActivity());
+                myAlert.myDialog("Cannot Upload", "Please Try Again");
+                
+            }
+
+
+        } catch (Exception e) {
+            Log.d(tag, "e upload ==>" + e.toString());
+        }
 
     }
 
